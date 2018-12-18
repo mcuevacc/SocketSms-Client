@@ -1,8 +1,9 @@
 var http = require('http');
 
 var net = require('net');
-var HOST = '127.0.0.1';
-var PORT = 6969;
+var HOST = '0.0.0.0';
+//var HOST = '18.223.100.180';
+var PORT = 8080;
 
 var client = new net.Socket();
 client.connect(PORT, HOST, function() {
