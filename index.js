@@ -31,3 +31,21 @@ client.on('data', function(data) {
 client.on('close', function() {
     console.log('Connection closed');
 });
+
+client.on("end", () => {
+    console.log("Connection ended")
+    reconnect();
+})
+
+client.on('error', function(error) {
+    console.log('Socket got problem: ', error.message);
+    reconnect();
+});
+
+// function that reconnect the client to the server
+reconnect = () => {
+    setTimeout(() => {
+        client.removeAllListeners(); // the important line that enables you to reopen a connection
+        client.connect(PORT,HOST);
+    }, 5000);
+}
