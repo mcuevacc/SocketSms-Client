@@ -7,23 +7,25 @@ var PORT = 8080;
 
 var client = new net.Socket();
 client.connect(PORT, HOST, function() {
-    console.log('CONNECTED TO: ' + HOST + ':' + PORT);
-    client.write('"Hello server from node client"');
+    console.log('Conected to: ' + HOST + ':' + PORT);
+    client.write('"Hi server from node client"\n');
 });
 
 client.on('data', function(data) {
+    try {
+        console.log("Sending SMS: "+data);    
+    	obj = JSON.parse(data);    
 
-	obj = JSON.parse(data);
-
-    console.log("Enviando sms");
-
-    http.get('http://localhost/api-sms/web/app_dev.php/sms/send?number='+obj.number+'&text='+obj.text, (resp) => {
-        resp.on('data', (data) => {
-        	console.log(data);
-        });
-    }).on("error", (err) => {
-	  console.log("Error: " + err.message);
-	});
+        http.get('http://localhost/api-sms/web/app_dev.php/sms/send?number='+obj.number+'&text='+obj.text, (resp) => {
+            resp.on('data', (data) => {
+            	console.log('Response: '+data);
+            });
+        }).on("error", (err) => {
+    	  console.log("Error: " + err.message);
+    	});
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 client.on('close', function() {
