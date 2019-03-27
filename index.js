@@ -2,13 +2,13 @@ var http = require('http');
 
 var net = require('net');
 var HOST = '0.0.0.0';
-//var HOST = '18.223.100.180';
+//var HOST = '18.224.27.30';
 var PORT = 8080;
 
 var client = new net.Socket();
 client.connect(PORT, HOST, function() {
     console.log('Conected to: ' + HOST + ':' + PORT);
-    client.write('"Hi server from node client"\n');
+    client.write('Sender');
 });
 
 client.on('data', function(data) {
