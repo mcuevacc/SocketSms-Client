@@ -3,7 +3,7 @@ var http = require('http');
 var net = require('net');
 var HOST = '0.0.0.0';
 //var HOST = '18.224.27.30';
-var PORT = 8080;
+var PORT = 1337;
 
 var timeReconnect = 5;
 
