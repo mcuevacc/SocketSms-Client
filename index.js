@@ -5,6 +5,8 @@ var HOST = '0.0.0.0';
 //var HOST = '18.224.27.30';
 var PORT = 8080;
 
+var timeReconnect = 5;
+
 var client = new net.Socket();
 client.connect(PORT, HOST);
 
@@ -47,7 +49,7 @@ client.on('error', function(error) {
 // function that reconnect the client to the server
 reconnect = () => {
     setTimeout(() => {
-        client.removeAllListeners(); // the important line that enables you to reopen a connection
+        //client.removeAllListeners(); // the important line that enables you to reopen a connection
         client.connect(PORT, HOST);
-    }, 1000);
+    }, timeReconnect*1000);
 }
