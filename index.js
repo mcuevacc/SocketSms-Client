@@ -6,7 +6,9 @@ var HOST = '0.0.0.0';
 var PORT = 8080;
 
 var client = new net.Socket();
-client.connect(PORT, HOST, function() {
+client.connect(PORT, HOST);
+
+client.on('connect', function() {
     console.log('Conected to: ' + HOST + ':' + PORT);
     client.write('Sender');
 });
@@ -46,6 +48,6 @@ client.on('error', function(error) {
 reconnect = () => {
     setTimeout(() => {
         client.removeAllListeners(); // the important line that enables you to reopen a connection
-        client.connect(PORT,HOST);
-    }, 5000);
+        client.connect(PORT, HOST);
+    }, 1000);
 }
