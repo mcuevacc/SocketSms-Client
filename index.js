@@ -8,14 +8,13 @@ var PORT = 1337;
 var timeReconnect = 5;
 
 var client = new net.Socket();
-client.setTimeout(0);
+//client.setTimeout(0);
 
-client.connect(PORT, HOST);
-
-client.on('connect', function() {
+client.connect(PORT, HOST, function() {
     console.log('Conected to: ' + HOST + ':' + PORT);
-    
 });
+
+//client.on('connect', );
 
 client.on('ready', function() {
     console.log('Connection Ready');
@@ -45,7 +44,9 @@ client.on("end", () => {
 
 client.on('close', function() {
     console.log('Connection closed');
-    reconnect();
+    setTimeout(() => {
+        client.connect(PORT, HOST);
+    }, timeReconnect*1000);
 });
 
 client.on('error', function(error) {
@@ -64,10 +65,11 @@ client.on('lookup', function() {
 client.on('timeout', function() {
     console.log('Connection timeout');
 });
-
+/*
 reconnect = () => {
     setTimeout(() => {
         //client.removeAllListeners(); // the important line that enables you to reopen a connection
         client.connect(PORT, HOST);
     }, timeReconnect*1000);
 }
+*/
