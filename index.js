@@ -5,23 +5,19 @@ var HOST = '0.0.0.0';
 //var HOST = '18.224.27.30';
 var PORT = 1337;
 
-var timeReconnect = 5;
-
 var client = new net.Socket();
-//client.setTimeout(0);
+client.connect(PORT, HOST);
 
-client.connect(PORT, HOST, function() {
-    console.log('Conected to: ' + HOST + ':' + PORT);
+client.on('connect', ()=>{
+    console.log('Conected to: '+HOST+':'+PORT);
 });
 
-//client.on('connect', );
-
-client.on('ready', function() {
+client.on('ready', ()=>{
     console.log('Connection Ready');
     client.write('Sender');
 });
 
-client.on('data', function(data) {
+client.on('data', (data)=>{
     try {
         console.log("Sending SMS: "+data);    
     	obj = JSON.parse(data);    
@@ -33,43 +29,22 @@ client.on('data', function(data) {
         }).on("error", (err) => {
     	  console.log("Error: " + err.message);
     	});
-    } catch (error) {
+    }catch(error){
         console.error(error);
     }
 });
 
-client.on("end", () => {
+client.on("end", ()=>{
     console.log("Connection ended");
 });
 
-client.on('close', function() {
+client.on('close', ()=>{
     console.log('Connection closed');
     setTimeout(() => {
         client.connect(PORT, HOST);
-    }, timeReconnect*1000);
+    }, 5000);
 });
 
-client.on('error', function(error) {
+client.on('error', (error)=>{
     console.log('Socket got problem: ', error.message);
-    //reconnect();
 });
-
-client.on('drain', function() {
-    console.log('Connection drain');
-});
-
-client.on('lookup', function() {
-    console.log('Connection lookup');
-});
-
-client.on('timeout', function() {
-    console.log('Connection timeout');
-});
-/*
-reconnect = () => {
-    setTimeout(() => {
-        //client.removeAllListeners(); // the important line that enables you to reopen a connection
-        client.connect(PORT, HOST);
-    }, timeReconnect*1000);
-}
-*/
