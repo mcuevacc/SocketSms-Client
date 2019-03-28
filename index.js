@@ -49,7 +49,7 @@ client.on('error', function(error) {
 // function that reconnect the client to the server
 reconnect = () => {
     setTimeout(() => {
-        //client.removeAllListeners(); // the important line that enables you to reopen a connection
+        client.removeAllListeners(); // the important line that enables you to reopen a connection
         client.connect(PORT, HOST);
     }, timeReconnect*1000);
 }
