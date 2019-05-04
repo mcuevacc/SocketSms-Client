@@ -7,7 +7,7 @@ var options = {
 
 var net = require('net');
 var HOST = '0.0.0.0';
-//var HOST = '18.224.27.30';
+//var HOST = '3.14.141.227';
 var PORT = 1337;
 
 var client = new net.Socket();
