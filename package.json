@@ -1,7 +1,7 @@
 {
-  "name": "clientsms",
+  "name": "socket-sms-client",
   "version": "1.0.0",
-  "description": "Client Socket",
+  "description": "Client Sms Socket",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
